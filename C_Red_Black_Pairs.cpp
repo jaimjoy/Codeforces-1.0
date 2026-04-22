@@ -23,23 +23,23 @@ string decToBin(ll n){string s="";while(n>0){s=to_string(n%2)+s;n/=2;}return s;}
 
 void solve()
 {
-    string s;cin>>s;
-    int l=-1, r=s.size()-1;
-    for(int i=0; i<s.size()-1; i++)
-    {
-        if(s[i] == s[i+1]) {l=i+1; break;}
-    }
-    for(int i=s.size()-1; i>l; i--)
-    {
-        if(s[i] == s[i-1]) {r=i-1; break;}
-    }
-    if(l == r) {YES; return;}
+    int n;cin>>n;
+    string a,b;cin>>a>>b;
 
-    for(int i=l; i<r; i++)
+    vector<int> dp(n, INT_MAX);
+    for(int i=0; i<n; i++)
     {
-        if(s[i] == s[i+1]) {NO; return;;}
+        // উপর-নিচে + আগের DP
+        dp[i] = (a[i] != b[i]) + (i ? dp[i-1] : 0);
+
+        // পাশা-পাশি + আগের DP
+        if(i)
+        {
+            dp[i] = min(dp[i], (a[i] != a[i-1]) + (b[i] != b[i-1]) + (i > 1 ? dp[i-2]:0));
+        }
     }
-    YES;
+
+    cout<<dp[n-1]<<nl;
 }
 
 int main()

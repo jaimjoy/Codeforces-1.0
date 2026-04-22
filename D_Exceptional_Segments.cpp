@@ -21,25 +21,29 @@ ll lcm(ll a, ll b) {return (a*b)/gcd(a,b);}
 #define cin(a) for(auto &x:a) cin>>x;
 string decToBin(ll n){string s="";while(n>0){s=to_string(n%2)+s;n/=2;}return s;}
 
+#define mod 998244353
+ll zero(ll x)
+{
+    if(x >= 3) return 2 + ((x-3)/4);
+    return 1;
+}
+ll one(ll x)
+{
+    if(x >= 1) return 1 + ((x-1)/4);
+    return 0;
+}
 void solve()
 {
-    string s;cin>>s;
-    int l=-1, r=s.size()-1;
-    for(int i=0; i<s.size()-1; i++)
-    {
-        if(s[i] == s[i+1]) {l=i+1; break;}
-    }
-    for(int i=s.size()-1; i>l; i--)
-    {
-        if(s[i] == s[i-1]) {r=i-1; break;}
-    }
-    if(l == r) {YES; return;}
+    ll n,x;cin>>n>>x;
+    ll upore0 = zero(x-1);
+    ll niche0 = zero(n) - upore0;
+    ll zeroPair = ((upore0 % mod) * (niche0 % mod)) % mod;
 
-    for(int i=l; i<r; i++)
-    {
-        if(s[i] == s[i+1]) {NO; return;;}
-    }
-    YES;
+    ll upore1 = one(x-1);
+    ll niche1 = one(n) - upore1;
+    ll onePair = ((upore1 % mod) * (niche1 % mod)) % mod;
+
+    cout<< (zeroPair + onePair) % mod <<nl;
 }
 
 int main()
