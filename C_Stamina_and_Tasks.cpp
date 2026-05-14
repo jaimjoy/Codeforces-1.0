@@ -37,7 +37,9 @@ void solve()
     {
         double c = v[i].ff;
         double p = v[i].ss;
-        dp[i] = max(dp[i+1], c + (p * dp[i+1]));
+        double skip = dp[i+1];
+        double jodiNei = c + (p * dp[i+1]);
+        dp[i] = max(skip, jodiNei);
     }
     cout<<setprecision(9)<<dp[0]<<nl;
 }
