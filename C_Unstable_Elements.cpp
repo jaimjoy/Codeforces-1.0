@@ -1,0 +1,79 @@
+//  In the name of Almighty Allah
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector<ll> vl;
+#define nl '\n'
+#define ff first
+#define ss second
+#define pb push_back
+#define eb emplace_back
+#define all(a) (a).begin(),(a).end()
+#define allr(a) (a).rbegin(),(a).rend()
+#define YES cout<<"YES\n"
+#define NO cout<<"NO\n"
+#define minus cout<<"-1\n"
+#define optimize() ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+
+const int MOD = 998244353;
+ll gcd(ll a, ll b) {return b ? gcd(b, a%b):a;}
+ll lcm(ll a, ll b) {return (a*b)/gcd(a,b);}
+ll modPow(ll a,ll b){ll res=1;while(b){if(b&1)res=(res*a)%MOD;a=(a*a)%MOD;b/=2;}return res;}
+#define cin(a) for(auto &x:a) cin>>x;
+string decToBin(ll n){string s="";while(n>0){s=to_string(n%2)+s;n/=2;}return s;}
+
+void solve()
+{
+    int n,k;cin>>n>>k;
+    vi v(n);
+    for(int i=0; i<n; i++) cin>>v[i];
+
+    vector<pair<int,int>> vp;
+    int cons=1;
+    for(int i=1; i<n; i++)
+    {
+        if(v[i] == v[i-1]) cons++;
+        else 
+        {
+            vp.pb({v[i-1], cons});
+            cons=1;
+        }
+    }
+    vp.pb({v[n-1], cons});
+
+    set<int> ans;
+    int sum = n;
+    while(!vp.empty())
+    {
+        if(k >= sum)
+        {
+            if((k-sum)%vp.size() == 0)
+            {
+                ans.insert(vp.size());
+            }
+        }
+
+        vector<pair<int,int>> vp2;
+        for(auto u:vp)
+        {
+            sum--;
+            u.ss--;
+            if(u.ss)
+            {
+                vp2.pb(u);
+            }
+        }
+        vp = vp2;
+    }
+    cout<<ans.size()<<nl;
+}
+
+int main()
+{
+    optimize();
+    // solve();
+    ll tc;cin>>tc;for(int i=1; i<=tc; i++)solve();
+    return 0;
+}
+//         Alhamdulillah         //
